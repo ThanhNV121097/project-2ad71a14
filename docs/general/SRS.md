@@ -50,15 +50,7 @@ Behaviour:
 |---|---|---|---|
 | AC-1 | Database has one greeting row with text `Hello Word` | Guest loads page | Page shows `Hello Word` centered horizontally and vertically |
 | AC-2 | Database greeting row contains any non-empty text value | Guest loads page | Page shows stored value, not hardcoded frontend copy |
-| AC-3 | Page is loaded | Guest views screen | Background is white and text is black, with no extra palette or animation |
-
-**Failure, boundary and permission behaviour**
-
-| Case | Condition | Expected behaviour |
-|---|---|---|
-| Boundary | Greeting text is a single short line | Page still centers line and keeps one-screen layout |
-| Not permitted | Guest requests page | Access is allowed; no sign-in gate exists |
-| Conflict | Two actors change greeting data at same time | Last saved greeting is what page reads after write completes |
+| AC-3 | Page is loaded | Guest views screen | Background is white and text is black |
 
 **Data touched**
 
