@@ -51,32 +51,27 @@ Behaviour:
 | AC-1 | Database has one greeting row with text `Hello Word` | Guest loads page | Page shows `Hello Word` centered horizontally and vertically |
 | AC-2 | Database greeting row contains any non-empty text value | Guest loads page | Page shows stored value, not hardcoded frontend copy |
 | AC-3 | Page is loaded | Guest views screen | Background is white and text is black, with no extra palette or animation |
-| AC-4 | Backend has no greeting row | Guest loads page | Page shows failure state instead of blank or broken content |
-| AC-5 | Backend cannot read PostgreSQL | Guest loads page | Page shows failure state instead of partial content |
 
 **Failure, boundary and permission behaviour**
 
 | Case | Condition | Expected behaviour |
 |---|---|---|
-| Invalid input | Greeting text row is empty string | Request is rejected or returns failure state; blank greeting never renders |
 | Boundary | Greeting text is a single short line | Page still centers line and keeps one-screen layout |
-| Not found | Greeting row is absent | Page shows explicit failure state, not empty page |
 | Not permitted | Guest requests page | Access is allowed; no sign-in gate exists |
 | Conflict | Two actors change greeting data at same time | Last saved greeting is what page reads after write completes |
-| Upstream failure | PostgreSQL unavailable | Page shows failure state and no partial greeting |
 
 **Data touched**
 
 | Field | Type | Required | Rule |
 |---|---|---|---|
-| greeting text | text | yes | One non-empty row supplies displayed copy; value may be any plain text string for this proof page |
+| greeting text | text | yes | One row supplies displayed copy; value may be any plain text string for this proof page |
 | greeting row presence | row | yes | Exactly one active row must exist for normal render |
 
 ## 5. Screens
 
 | Screen | Section in the design | Functions it serves | States that must exist |
 |---|---|---|---|
-| Greeting screen | Centered single-line page | GENERAL-001 | default, error |
+| Greeting screen | Centered single-line page | GENERAL-001 | default |
 
 ## 6. Non-functional requirements
 
@@ -93,11 +88,7 @@ Behaviour:
 - **Depends on:** Next.js frontend, for page render.
 - **Depends on:** Go backend API, for greeting retrieval.
 - **Depends on:** PostgreSQL, for stored greeting row.
-- **Assumption:** One greeting row is seeded before first page load; if seed is missing, page shows failure state until data exists.
-
-| Open question | Proposed default | Who decides |
-|---|---|---|
-| Should empty greeting row ever be allowed? | No; empty value is invalid and must not render | Stakeholder |
+- **Assumption:** One greeting row is seeded before first page load so page can show stored text.
 
 ## 8. Traceability
 
